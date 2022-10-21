@@ -15,31 +15,39 @@ final class RxViewModel{
         let settingData : Driver<RxModel>
     }
     
-    let settingData: BehaviorRelay<RxModel>
+    let _settingData: BehaviorRelay<RxModel>
     
     init(){
         
-        self.settingData = BehaviorRelay(value: RxModel(contentTitle: "두번 탭해주세요", contentColor: .label, backgroundColor: .systemBackground))
-        
+        self._settingData = BehaviorRelay(value: RxModel(contentTitle: "두번 탭해주세요", contentColor: .label, backgroundColor: .systemBackground))
     }
     
     func transform(input: Input) -> Output{
         
         let settingVM = RxSettingViewModel()
         
+        settingVM._inputText
+            .debug()
+            .withLatestFrom(self._settingData, resultSelector: {
+                $1.setTitle($0)
+            })
+            .bind(to: self._settingData)
+
         
+        settingVM._inputTextColor
+            .withLatestFrom(self._settingData, resultSelector: {
+                $1.setTextColor($0)
+            })
+            .bind(to: self._settingData)
         
         let doubleTapped = input.doubleTapped
             .compactMap{Void -> RxSettingViewModel in
-                
                 return settingVM
             }
         
-        let Data = settingVM.settingData
-
-        
+      
         return Output(presentSign: doubleTapped.asSignal(onErrorSignalWith: .empty()),
-                      settingData: Data.asDriver()
+                      settingData: self._settingData.asDriver()
         
         )
     }

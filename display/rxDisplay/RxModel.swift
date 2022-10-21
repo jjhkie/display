@@ -10,11 +10,9 @@ struct RxModel{
     var backgroundColor: UIColor
     
 }
-
 extension RxModel{
     
     func setTitle(_ title: String)  -> RxModel{
-        
         var newInfo = self
         
         newInfo.contentTitle = title

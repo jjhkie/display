@@ -9,20 +9,12 @@ import SnapKit
 final class RxSettingViewController: UIViewController{
     
     let disposeBag = DisposeBag()
+    
     let closeButton = UIBarButtonItem()
-    
     let inputText = UITextField()
-    
     
     let flowLayout = UICollectionViewFlowLayout()
     let settingCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-
-    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

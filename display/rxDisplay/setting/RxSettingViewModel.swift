@@ -21,12 +21,19 @@ class RxSettingViewModel{
     
     }
     
-    let settingData: BehaviorRelay<RxModel>
     
     let buttonData: Driver<[String]>
     
+    // Setting Data Sava Variable
+    var _inputText = PublishRelay<String>()
+    //var _inputText BehaviorSubject<String>
+    var _inputTextColor : BehaviorRelay<UIColor>
+    var _inputBackgroundColor : BehaviorRelay<UIColor>
+    
     init(){
-        self.settingData = BehaviorRelay(value: RxModel(contentTitle: "두번 탭해주세요", contentColor: .label, backgroundColor: .systemBackground))
+        
+        _inputTextColor = BehaviorRelay(value: .label)
+        _inputBackgroundColor = BehaviorRelay(value: .systemBackground)
         
         let data = [
         "aa","bb","cc"]
@@ -37,11 +44,12 @@ class RxSettingViewModel{
     func transform(input: Input) -> Output{
         
         input.inputText
-            .withLatestFrom(settingData,resultSelector: {
-                $1.setTitle($0)
+            .bind(onNext: {data in
+                print(data)
+                self.setText(data)
             })
-            .bind(to: self.settingData)
             .disposed(by: disposeBag)
+  
         
         let closeTapped  = input.closeButtonTapped
             .map{
@@ -53,5 +61,9 @@ class RxSettingViewModel{
             
             buttonCell: buttonData.asDriver()
         )
+    }
+    
+    func setText(_ text: String) {
+        self._inputText.accept(text)
     }
 }
