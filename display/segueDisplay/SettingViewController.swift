@@ -7,7 +7,7 @@ protocol LEDBoardSettingDelegate: AnyObject {
 }
 
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
 
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var yellowButton: UIButton!
@@ -17,17 +17,19 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var orangeButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureView()
+    }
+    
     weak var delegate: LEDBoardSettingDelegate?
+    
+    ///데이터를 전달받을 변수
     var ledText: String?
     var textColor: UIColor = .yellow
     var backgroundColor: UIColor = .black
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.configureView()
 
-    }
-    
     @IBAction func TextColorChangeButton(_ sender: UIButton) {
         if sender == self.yellowButton{
             self.changeTextColor(color: .yellow)
@@ -58,6 +60,8 @@ class SettingViewController: UIViewController {
         self.delegate?.changedSetting(text: self.textField.text, textColor: self.textColor, backgroundColor: self.backgroundColor)
         self.navigationController?.popViewController(animated: true)
     }
+    
+    
     
     private func changeTextColor(color: UIColor){
         self.yellowButton.alpha = color == UIColor.yellow ? 1 : 0.2
