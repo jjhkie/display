@@ -12,44 +12,67 @@ class RxSettingViewModel{
     struct Input{
         let closeButtonTapped: Observable<Void>
         let inputText: Observable<String>
-        //let inputTextColor: Observable<UIColor>
+        let inputTextColor: Observable<UIColor>
     }
     
     struct Output{
         let closeSign: Signal<Void>
-        let buttonCell: Driver<[String]>
+        let buttonCell: Driver<[UIColor]>
     
     }
     
-    
-    let buttonData: Driver<[String]>
+    let buttonData: Driver<[UIColor]>
     
     // Setting Data Sava Variable
     var _inputText = PublishRelay<String>()
-    //var _inputText BehaviorSubject<String>
-    var _inputTextColor : BehaviorRelay<UIColor>
+    var _inputTextColor = PublishRelay<UIColor>()
     var _inputBackgroundColor : BehaviorRelay<UIColor>
+    
+    let _settingData: BehaviorRelay<RxModel>
     
     init(){
         
-        _inputTextColor = BehaviorRelay(value: .label)
+        self._settingData = BehaviorRelay(value: RxModel(contentTitle: "두번 탭해주세요", contentColor: .red, backgroundColor: .systemBackground))
+    
+        
         _inputBackgroundColor = BehaviorRelay(value: .systemBackground)
         
         let data = [
-        "aa","bb","cc"]
+            UIColor.blue,UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.red,UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.black]
         
         self.buttonData = Driver.just(data)
+        
     }
     
     func transform(input: Input) -> Output{
         
         input.inputText
             .bind(onNext: {data in
-                print(data)
                 self.setText(data)
             })
             .disposed(by: disposeBag)
+        
+        input.inputTextColor
+            .bind(onNext: { color in
+                print("textColor : \(color)")
+                self.setTextColor(color)
+            })
+            .disposed(by: disposeBag)
   
+        self._inputText
+            .withLatestFrom(self._settingData, resultSelector: {
+                $1.setTitle($0)
+            })
+            .bind(to: self._settingData)
+
+        
+        self._inputTextColor
+            .withLatestFrom(self._settingData, resultSelector: {
+                $1.setTextColor($0)
+            })
+            .bind(to: self._settingData)
+        
+        
         
         let closeTapped  = input.closeButtonTapped
             .map{
@@ -65,5 +88,9 @@ class RxSettingViewModel{
     
     func setText(_ text: String) {
         self._inputText.accept(text)
+    }
+    
+    func setTextColor(_ color: UIColor) {
+        self._inputTextColor.accept(color)
     }
 }

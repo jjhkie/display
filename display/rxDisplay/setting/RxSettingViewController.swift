@@ -6,6 +6,7 @@ import SnapKit
 
 
 
+
 final class RxSettingViewController: UIViewController{
     
     let disposeBag = DisposeBag()
@@ -16,6 +17,7 @@ final class RxSettingViewController: UIViewController{
     let flowLayout = UICollectionViewFlowLayout()
     let settingCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -26,11 +28,17 @@ final class RxSettingViewController: UIViewController{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+ 
     
     func bind(_ VM: RxSettingViewModel){
+     
+        getData(data: VM._settingData.value)
+        
         let input = RxSettingViewModel.Input(
             closeButtonTapped: closeButton.rx.tap.asObservable(),
-            inputText: inputText.rx.text.orEmpty.asObservable())
+            inputText: inputText.rx.text.orEmpty.asObservable(),
+            inputTextColor: settingCV.rx.modelSelected(UIColor.self).asObservable()
+        )
         
         let output = VM.transform(input: input)
         
@@ -43,23 +51,24 @@ final class RxSettingViewController: UIViewController{
         //collectionView
         output.buttonCell
             .drive(settingCV.rx.items(cellIdentifier: "Cell",cellType: RxSettingCell.self)){ row, data, cell in
-
+                print(row)
                 cell.setButton(data: data)
-
+                if VM._settingData.value.contentColor == data{
+                    cell.layer.borderColor = UIColor.red.cgColor
+                    cell.layer.borderWidth = 2
+                }
             }
             .disposed(by: disposeBag)
         
-        
-
-        settingCV.rx.modelSelected(String.self)
+        settingCV.rx.modelSelected(UIColor.self)
             .subscribe(onNext:{
                 print($0)
             })
             .disposed(by: disposeBag)
         
         settingCV.rx.itemSelected
-            .subscribe(onNext: {
-                print($0)
+            .subscribe(onNext: {data in
+                self.settingCV.cellForItem(at: data)?.backgroundColor = .white
             })
             .disposed(by: disposeBag)
     }
@@ -67,8 +76,9 @@ final class RxSettingViewController: UIViewController{
 
 extension RxSettingViewController{
     
-    private func configureCollectionViewDataSource() {
-
+    private func getData(data : RxModel){
+        self.inputText.text = data.contentTitle
+        
     }
     
     private func attribute(){
@@ -78,6 +88,7 @@ extension RxSettingViewController{
         navigationItem.setLeftBarButton(closeButton, animated: true)
 
         //textfield Setting
+
         inputText.layer.cornerRadius = 10.0
         inputText.backgroundColor = UIColor(white:1, alpha: 0.8)
         

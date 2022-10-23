@@ -23,9 +23,7 @@ extension RxModel{
     func setTextColor(_ color: UIColor) -> RxModel{
         
         var newInfo = self
-        
         newInfo.contentColor = color
-        
         return newInfo
     }
     
