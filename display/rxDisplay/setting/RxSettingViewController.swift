@@ -4,9 +4,6 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-
-
-
 final class RxSettingViewController: UIViewController{
     
     let disposeBag = DisposeBag()
@@ -14,8 +11,16 @@ final class RxSettingViewController: UIViewController{
     let closeButton = UIBarButtonItem()
     let inputText = UITextField()
     
+    let textColorStack = UIStackView()
+    let backgroundStack = UIStackView()
+    
     let flowLayout = UICollectionViewFlowLayout()
-    let settingCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    
+    let textColorLabel = UILabel()
+    let textColorCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+    
+    let backgroundLabel = UILabel()
+    let backgroundColorCV = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
     
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -37,7 +42,8 @@ final class RxSettingViewController: UIViewController{
         let input = RxSettingViewModel.Input(
             closeButtonTapped: closeButton.rx.tap.asObservable(),
             inputText: inputText.rx.text.orEmpty.asObservable(),
-            inputTextColor: settingCV.rx.modelSelected(UIColor.self).asObservable()
+            inputTextColor: textColorCV.rx.modelSelected(UIColor.self).asObservable(),
+            inputBgColor: backgroundColorCV.rx.modelSelected(UIColor.self).asObservable()
         )
         
         let output = VM.transform(input: input)
@@ -49,27 +55,24 @@ final class RxSettingViewController: UIViewController{
             .disposed(by: disposeBag)
         
         //collectionView
-        output.buttonCell
-            .drive(settingCV.rx.items(cellIdentifier: "Cell",cellType: RxSettingCell.self)){ row, data, cell in
-                print(row)
+        output.textButtonCell
+            .drive(textColorCV.rx.items(cellIdentifier: "Cell",cellType: RxSettingCell.self)){ row, data, cell in
+                
                 cell.setButton(data: data)
                 if VM._settingData.value.contentColor == data{
-                    cell.layer.borderColor = UIColor.red.cgColor
-                    cell.layer.borderWidth = 2
+                    cell.isSelected = true
                 }
             }
             .disposed(by: disposeBag)
         
-        settingCV.rx.modelSelected(UIColor.self)
-            .subscribe(onNext:{
-                print($0)
-            })
-            .disposed(by: disposeBag)
-        
-        settingCV.rx.itemSelected
-            .subscribe(onNext: {data in
-                self.settingCV.cellForItem(at: data)?.backgroundColor = .white
-            })
+        output.bgButtonCell
+            .drive(backgroundColorCV.rx.items(cellIdentifier: "Cell",cellType: RxSettingCell.self)){ row, data, cell in
+                
+                cell.setButton(data: data)
+                if VM._settingData.value.contentColor == data{
+                    cell.isSelected = true
+                }
+            }
             .disposed(by: disposeBag)
     }
 }
@@ -98,30 +101,59 @@ extension RxSettingViewController{
         //CollectionView Setting
         flowLayout.scrollDirection = .vertical
         flowLayout.itemSize = CGSize(width: 30, height: 30)
-        settingCV.register(RxSettingCell.self, forCellWithReuseIdentifier: "Cell")
         
+        
+        //StackView Setting
+        textColorStack.axis = .vertical
+
+        backgroundStack.axis = .vertical
+        
+        //Label Text Setting
+        textColorLabel.text = "글자색"
+        textColorLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        
+        backgroundLabel.text = "배경색"
+        backgroundLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        
+        textColorCV.register(RxSettingCell.self, forCellWithReuseIdentifier: "Cell")
+        backgroundColorCV.register(RxSettingCell.self, forCellWithReuseIdentifier: "Cell")
         
     }
     
     private func layout(){
         
-        [inputText,settingCV].forEach{
-            view.addSubview($0)
+        [textColorLabel,textColorCV].forEach{
+            textColorStack.addArrangedSubview($0)
         }
         
+        [backgroundLabel,backgroundColorCV].forEach{
+            backgroundStack.addArrangedSubview($0)
+        }
+        
+        [inputText,textColorStack,backgroundStack].forEach{
+            view.addSubview($0)
+        }
         inputText.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(30)
         }
         
-         settingCV.snp.makeConstraints{
-             $0.top.equalTo(inputText.snp.bottom).offset(20)
-             
-             $0.leading.equalTo(inputText.snp.leading)
-             $0.trailing.equalTo(inputText.snp.trailing)
-             $0.bottom.equalToSuperview()
-         }
+        textColorStack.snp.makeConstraints{
+            $0.top.equalTo(inputText.snp.bottom).offset(20)
+            
+            $0.leading.equalTo(inputText.snp.leading)
+            $0.trailing.equalTo(inputText.snp.trailing)
+            $0.height.equalTo(250)
+        }
         
+        backgroundStack.snp.makeConstraints{
+            $0.top.equalTo(textColorStack.snp.bottom).offset(20)
+            
+            $0.leading.equalTo(textColorStack.snp.leading)
+            
+            $0.trailing.equalTo(textColorStack.snp.trailing)
+            $0.bottom.equalToSuperview()
+        }
         
         
         

@@ -25,6 +25,16 @@ class RxSettingCell: UICollectionViewCell{
     
     let colorButton = UILabel()
     
+    override var isSelected: Bool {
+        willSet {
+            if newValue {
+                self.backgroundColor = .red
+            } else {
+                self.backgroundColor = .gray
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         attribute()
@@ -48,8 +58,7 @@ extension RxSettingCell{
     private func attribute(){
         colorButton.layer.masksToBounds = true
         colorButton.layer.cornerRadius = 20
-        //colorButton.layer.cornerRadius = colorButton.layer.frame.size.width/2
-        
+
         colorButton.backgroundColor = .black
         
         backgroundColor = .white
