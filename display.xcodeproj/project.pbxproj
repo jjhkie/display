@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B91702F729024AB6004F8775 /* RxSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91702F629024AB6004F8775 /* RxSettingCell.swift */; };
+		B915C6B8290792AA0038E66E /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = B915C6B7290792AA0038E66E /* MarqueeLabel */; };
 		B91FEB8429011E22008AE5ED /* RxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91FEB8329011E22008AE5ED /* RxViewController.swift */; };
 		B91FEB8829012847008AE5ED /* RxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91FEB8729012847008AE5ED /* RxViewModel.swift */; };
 		B91FEB8B2901288B008AE5ED /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B91FEB8A2901288B008AE5ED /* RxCocoa */; };
@@ -24,10 +24,12 @@
 		B9237D0628AE5AF300BFBB4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9237D0528AE5AF300BFBB4F /* Assets.xcassets */; };
 		B9237D0928AE5AF300BFBB4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9237D0728AE5AF300BFBB4F /* LaunchScreen.storyboard */; };
 		B9237D1128AE646700BFBB4F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9237D1028AE646700BFBB4F /* SettingViewController.swift */; };
+		B9DDD8D12907AE5500297CBD /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DDD8D02907AE5500297CBD /* TextField+.swift */; };
+		B9DDD8D32907B08700297CBD /* Label+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DDD8D22907B08700297CBD /* Label+.swift */; };
+		B9DDD8D52907CE4A00297CBD /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DDD8D42907CE4A00297CBD /* ButtonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B91702F629024AB6004F8775 /* RxSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSettingCell.swift; sourceTree = "<group>"; };
 		B91FEB8329011E22008AE5ED /* RxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewController.swift; sourceTree = "<group>"; };
 		B91FEB8729012847008AE5ED /* RxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewModel.swift; sourceTree = "<group>"; };
 		B91FEB9929012C96008AE5ED /* RxSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSettingViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +44,9 @@
 		B9237D0828AE5AF300BFBB4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9237D0A28AE5AF300BFBB4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9237D1028AE646700BFBB4F /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		B9DDD8D02907AE5500297CBD /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
+		B9DDD8D22907B08700297CBD /* Label+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+.swift"; sourceTree = "<group>"; };
+		B9DDD8D42907CE4A00297CBD /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B91FEB8F2901288B008AE5ED /* RxSwift in Frameworks */,
+				B915C6B8290792AA0038E66E /* MarqueeLabel in Frameworks */,
 				B91FEB92290128C8008AE5ED /* SnapKit in Frameworks */,
 				B91FEB8D2901288B008AE5ED /* RxRelay in Frameworks */,
 				B91FEB8B2901288B008AE5ED /* RxCocoa in Frameworks */,
@@ -92,7 +98,7 @@
 			children = (
 				B91FEB9929012C96008AE5ED /* RxSettingViewController.swift */,
 				B91FEB9B29012C9E008AE5ED /* RxSettingViewModel.swift */,
-				B91702F629024AB6004F8775 /* RxSettingCell.swift */,
+				B9DDD8D42907CE4A00297CBD /* ButtonCell.swift */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 				B9237CFC28AE5AF300BFBB4F /* AppDelegate.swift */,
 				B9237CFE28AE5AF300BFBB4F /* SceneDelegate.swift */,
 				B91FEB8529011E28008AE5ED /* rxDisplay */,
+				B9DDD8D62907F13B00297CBD /* custom */,
 				B91FEB8629011E3E008AE5ED /* segueDisplay */,
 				B9237D0228AE5AF300BFBB4F /* Main.storyboard */,
 				B9237D0528AE5AF300BFBB4F /* Assets.xcassets */,
@@ -126,6 +133,15 @@
 				B9237D0A28AE5AF300BFBB4F /* Info.plist */,
 			);
 			path = display;
+			sourceTree = "<group>";
+		};
+		B9DDD8D62907F13B00297CBD /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				B9DDD8D02907AE5500297CBD /* TextField+.swift */,
+				B9DDD8D22907B08700297CBD /* Label+.swift */,
+			);
+			path = custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +165,7 @@
 				B91FEB8C2901288B008AE5ED /* RxRelay */,
 				B91FEB8E2901288B008AE5ED /* RxSwift */,
 				B91FEB91290128C8008AE5ED /* SnapKit */,
+				B915C6B7290792AA0038E66E /* MarqueeLabel */,
 			);
 			productName = display;
 			productReference = B9237CF928AE5AF300BFBB4F /* display.app */;
@@ -181,6 +198,7 @@
 			packageReferences = (
 				B91FEB892901288B008AE5ED /* XCRemoteSwiftPackageReference "RxSwift" */,
 				B91FEB90290128C8008AE5ED /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B915C6B6290792AA0038E66E /* XCRemoteSwiftPackageReference "MarqueeLabel" */,
 			);
 			productRefGroup = B9237CFA28AE5AF300BFBB4F /* Products */;
 			projectDirPath = "";
@@ -214,11 +232,13 @@
 				B9237CFF28AE5AF300BFBB4F /* SceneDelegate.swift in Sources */,
 				B9237D1128AE646700BFBB4F /* SettingViewController.swift in Sources */,
 				B91FEB8829012847008AE5ED /* RxViewModel.swift in Sources */,
+				B9DDD8D32907B08700297CBD /* Label+.swift in Sources */,
 				B91FEB8429011E22008AE5ED /* RxViewController.swift in Sources */,
+				B9DDD8D12907AE5500297CBD /* TextField+.swift in Sources */,
 				B91FEB9E2901445F008AE5ED /* RxModel.swift in Sources */,
 				B91FEB9A29012C96008AE5ED /* RxSettingViewController.swift in Sources */,
-				B91702F729024AB6004F8775 /* RxSettingCell.swift in Sources */,
 				B91FEB9C29012C9E008AE5ED /* RxSettingViewModel.swift in Sources */,
+				B9DDD8D52907CE4A00297CBD /* ButtonCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +456,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B915C6B6290792AA0038E66E /* XCRemoteSwiftPackageReference "MarqueeLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cbpowell/MarqueeLabel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		B91FEB892901288B008AE5ED /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -455,6 +483,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B915C6B7290792AA0038E66E /* MarqueeLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B915C6B6290792AA0038E66E /* XCRemoteSwiftPackageReference "MarqueeLabel" */;
+			productName = MarqueeLabel;
+		};
 		B91FEB8A2901288B008AE5ED /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B91FEB892901288B008AE5ED /* XCRemoteSwiftPackageReference "RxSwift" */;

@@ -6,10 +6,16 @@ import UIKit
 
 struct RxModel{
     var contentTitle: String
-    var contentColor: UIColor
-    var backgroundColor: UIColor
-    
+    var fontSize: Int
+    var fontWeight: UIFont.Weight
+    var textSpeed: Int
 }
+
+struct fWeight{
+    let name : String
+    let weight : UIFont.Weight
+}
+
 extension RxModel{
     
     func setTitle(_ title: String)  -> RxModel{
@@ -20,19 +26,33 @@ extension RxModel{
         return newInfo
     }
     
-    func setTextColor(_ color: UIColor) -> RxModel{
+    
+    func setTextSize(_ size: Int) -> RxModel{
         
         var newInfo = self
-        newInfo.contentColor = color
+        
+        newInfo.fontSize = size
+        
         return newInfo
     }
     
-    func setBackgroundColor(_ color: UIColor) -> RxModel{
+    func setTextWeight(_ weight: UIFont.Weight) -> RxModel{
         
         var newInfo = self
         
-        newInfo.backgroundColor = color
+        newInfo.fontWeight = weight
+        
+        return newInfo
+    }
+    
+    func setTextSpeed(_ speed: Int) -> RxModel{
+        
+        var newInfo = self
+        
+        newInfo.textSpeed = speed
         
         return newInfo
     }
 }
+
+
